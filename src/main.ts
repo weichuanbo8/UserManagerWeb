@@ -24,12 +24,23 @@
         git push -u origin main
     c、日常提交
         git add .
-        git commit -m "【版本】 注释"
+        git commit -m "【0.91】 注释"
         git push -u origin main
 */
-
-import { createApp } from 'vue'
-import './style.css'
+/*
+    配置组件
+    a、按需引用
+    b、配置跨域访问
+    c、配置页面导航
+    d、配置状态管理
+    e、修改首页——清空app.vue、修改title
+*/
+import { createApp } from 'vue';
+import router from './router'
 import App from './App.vue'
+import {createPinia} from 'pinia'
 
-createApp(App).mount('#app')
+createApp(App)
+.use(router)
+.use(createPinia)
+.mount('#app')
