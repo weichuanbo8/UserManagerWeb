@@ -4,6 +4,7 @@ import vue from '@vitejs/plugin-vue'
 import Components from 'unplugin-vue-components/vite'
 import {ElementPlusResolver} from 'unplugin-vue-components/resolvers'
 import AutoImport from 'unplugin-auto-import/vite'
+import {G_baseURL_current} from './src/config/GlobalConst'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -14,18 +15,20 @@ export default defineConfig({
     }),
     Components({
       resolvers: [ElementPlusResolver()],
-    }),],
-    server:{
-      open:true,
-      host:"127.0.0.1",
-      port:5021,
-      //代理
-      proxy:{//后台api访问地址配置
-       '/api':{
-         target:"http://localhost:5021/",
-         changeOrigin:true,
-         rewrite:(Path) => Path.replace(/^\/api/,'')
-       }
+    }),
+  ],
+  server:{
+    open:true,
+    host:"127.0.0.1",
+    port:5021,
+    //代理
+    proxy:{//后台api访问地址配置
+      '/api':{
+        target:G_baseURL_current,
+        changeOrigin:true,
+        rewrite:(Path) => Path.replace(/^\/api/,''),
+        timeout: 5 * 1000,
       }
-     }  
+    }
+  }  
 })
